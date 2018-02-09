@@ -31,7 +31,7 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody v-if="kegiatans.length">
                                 <tr v-for="kegiatan in kegiatans">
                                     <td>{{kegiatan.id}}</td>
                                     <td>{{kegiatan.name}}</td>
@@ -41,6 +41,9 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <div class="body" align="right">
+                                <pagination :data="kegiatansData" v-on:pagination-change-page="getHalaman" :limit="3"></pagination>
+                            </div>
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
@@ -140,16 +143,36 @@
                 mahasiswas: [],
                 kegiatans: [],
                 kegiatan: {},
-                rows:[]
+                rows:[],
+                kegiatansData:{},
+                loading: true,
+                errors: [],
             }
         },
         created: function()
         {
-            this.fetchKegiatans()
             this.getJurusan()
             this.fetchMahasiswas()
+            this.getHalaman()
         },
         methods: {
+            getHalaman(page) {
+                var app = this;
+                if (typeof page === 'undefined'){
+                    page = 1;
+                }
+                axios.get(`/api/kegiatan/${this.$route.params.id}?page=`+page)
+                    .then(function (resp){
+                        app.kegiatans = resp.data.data;
+                        app.kegiatansData = resp.data;
+                        app.loading = false;
+                    })
+                    .catch(function (resp){
+                        console.log(resp);
+                        app.loading = false;
+                        alert("Could not load halaman");
+                    });
+            },
             fetchMahasiswas()
             {
               let uri = `/api/mahasiswa/jurusan/${this.$route.params.id}`
@@ -164,14 +187,14 @@
                     this.jurusan = response.data;
                 });
             },
-            fetchKegiatans()
-            {
-                let uri = `http://127.0.0.1:8000/api/kegiatan/${this.$route.params.id}`;
-                axios.get(uri).then((response) => {
-                    this.kegiatans = response.data;
-                });
-
-            },
+//            fetchKegiatans()
+//            {
+//                let uri = `http://127.0.0.1:8000/api/kegiatan/${this.$route.params.id}`;
+//                axios.get(uri).then((response) => {
+//                    this.kegiatans = response.data;
+//                });
+//
+//            },
             watch: {
                 '$route.params.id': 'fetchKegiatans',
             },

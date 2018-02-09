@@ -10,7 +10,7 @@
 <link href="{{asset('admin/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="{{asset('admin/vendor/vendor/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
+<link href="{{asset('admin/vendor/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
 
 <!-- DataTables CSS -->
 <link href="{{asset('admin/vendor/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">

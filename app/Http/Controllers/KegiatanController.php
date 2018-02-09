@@ -64,7 +64,7 @@ class KegiatanController extends Controller
     public function show($id)
     {
         $kegiatans = Kegiatans::select('*')
-        ->where(['id_jurusan'=>$id])->get();
+        ->where(['id_jurusan'=>$id])->paginate(5);
         return response()->json($kegiatans);
     }
 

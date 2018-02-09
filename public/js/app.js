@@ -11188,43 +11188,16 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(39).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(39).setImmediate))
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(19);
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -11330,6 +11303,33 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -11895,7 +11895,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(13);
-module.exports = __webpack_require__(53);
+module.exports = __webpack_require__(56);
 
 
 /***/ }),
@@ -11949,7 +11949,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(3);
+window.axios = __webpack_require__(2);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -29087,7 +29087,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(16)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(16)(module)))
 
 /***/ }),
 /* 16 */
@@ -42760,7 +42760,7 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(38)
 /* template */
@@ -42808,10 +42808,13 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
+//
+//
+//
 //
 //
 //
@@ -42892,7 +42895,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchJurusans: function fetchJurusans() {
             var _this = this;
 
-            var uri = 'http://127.0.0.1:8000/api/jurusan';
+            var uri = '/api/jurusan';
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(uri).then(function (response) {
                 _this.jurusans = response.data;
             });
@@ -42965,7 +42968,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 /* 40 */
@@ -43158,7 +43161,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(7)))
 
 /***/ }),
 /* 41 */
@@ -43201,36 +43204,34 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c(
-                  "li",
-                  [
-                    _vm._m(2),
-                    _vm._v(" "),
+                _c("li", [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    { staticClass: "nav nav-second-level" },
                     _vm._l(_vm.jurusans, function(jurusan) {
-                      return _c("ul", { staticClass: "nav nav-second-level" }, [
-                        _c(
-                          "li",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                attrs: {
-                                  to: {
-                                    name: "Jurusan",
-                                    params: { id: jurusan.id }
-                                  }
+                      return _c(
+                        "li",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              attrs: {
+                                to: {
+                                  name: "Jurusan",
+                                  params: { id: jurusan.id }
                                 }
-                              },
-                              [_vm._v(_vm._s(jurusan.nama))]
-                            )
-                          ],
-                          1
-                        )
-                      ])
+                              }
+                            },
+                            [_vm._v(_vm._s(jurusan.nama))]
+                          )
+                        ],
+                        1
+                      )
                     })
-                  ],
-                  2
-                )
+                  )
+                ])
               ])
             ])
           ]
@@ -43310,7 +43311,7 @@ var staticRenderFns = [
           _c("li", { staticClass: "divider" }),
           _vm._v(" "),
           _c("li", [
-            _c("a", { attrs: { href: "login.html" } }, [
+            _c("a", { attrs: { href: "#" } }, [
               _c("i", { staticClass: "fa fa-sign-out fa-fw" }),
               _vm._v(" Logout")
             ])
@@ -43323,7 +43324,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", [
+    return _c("a", { attrs: { href: "#" } }, [
       _c("i", { staticClass: "fa fa-bar-chart-o fa-fw" }),
       _vm._v("Daftar Jurusan"),
       _c("span", { staticClass: "fa arrow" })
@@ -43353,7 +43354,7 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_MahasiswaComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_MahasiswaComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_JurusanComponent_vue__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_JurusanComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_JurusanComponent_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_DetailKegiatanComponent__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_DetailKegiatanComponent__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_DetailKegiatanComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_DetailKegiatanComponent__);
 
 
@@ -43364,7 +43365,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 
 
-
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('pagination', __webpack_require__(67));
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     mode: 'history',
     routes: [{
@@ -46019,7 +46020,7 @@ if (inBrowser && window.Vue) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(45)
 /* template */
@@ -46067,7 +46068,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
@@ -46503,7 +46504,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(48)
 /* template */
@@ -46601,7 +46602,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(51)
 /* template */
@@ -46649,10 +46650,13 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
+//
+//
+//
 //
 //
 //
@@ -46795,16 +46799,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             mahasiswas: [],
             kegiatans: [],
             kegiatan: {},
-            rows: []
+            rows: [],
+            kegiatansData: {},
+            loading: true,
+            errors: []
         };
     },
 
     created: function created() {
-        this.fetchKegiatans();
         this.getJurusan();
         this.fetchMahasiswas();
+        this.getHalaman();
     },
     methods: {
+        getHalaman: function getHalaman(page) {
+            var app = this;
+            if (typeof page === 'undefined') {
+                page = 1;
+            }
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/kegiatan/' + this.$route.params.id + '?page=' + page).then(function (resp) {
+                app.kegiatans = resp.data.data;
+                app.kegiatansData = resp.data;
+                app.loading = false;
+            }).catch(function (resp) {
+                console.log(resp);
+                app.loading = false;
+                alert("Could not load halaman");
+            });
+        },
         fetchMahasiswas: function fetchMahasiswas() {
             var _this = this;
 
@@ -46821,24 +46843,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.jurusan = response.data;
             });
         },
-        fetchKegiatans: function fetchKegiatans() {
-            var _this3 = this;
 
-            var uri = 'http://127.0.0.1:8000/api/kegiatan/' + this.$route.params.id;
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(uri).then(function (response) {
-                _this3.kegiatans = response.data;
-            });
-        },
-
+        //            fetchKegiatans()
+        //            {
+        //                let uri = `http://127.0.0.1:8000/api/kegiatan/${this.$route.params.id}`;
+        //                axios.get(uri).then((response) => {
+        //                    this.kegiatans = response.data;
+        //                });
+        //
+        //            },
         watch: {
             '$route.params.id': 'fetchKegiatans'
         },
         addItem: function addItem() {
-            var _this4 = this;
+            var _this3 = this;
 
             var uri = 'http://127.0.0.1:8000/api/kegiatan';
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(uri, this.kegiatan).then(function (response) {
-                _this4.$router.push({ name: 'Jurusan' });
+                _this3.$router.push({ name: 'Jurusan' });
             });
         },
 
@@ -46892,23 +46914,37 @@ var render = function() {
                 [
                   _vm._m(2),
                   _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.kegiatans, function(kegiatan) {
-                      return _c("tr", [
-                        _c("td", [_vm._v(_vm._s(kegiatan.id))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(kegiatan.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(kegiatan.tahun))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(kegiatan.sk))]),
-                        _vm._v(" "),
-                        _vm._m(3, true)
-                      ])
-                    })
-                  )
+                  _vm.kegiatans.length
+                    ? _c(
+                        "tbody",
+                        _vm._l(_vm.kegiatans, function(kegiatan) {
+                          return _c("tr", [
+                            _c("td", [_vm._v(_vm._s(kegiatan.id))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(kegiatan.name))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(kegiatan.tahun))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(kegiatan.sk))]),
+                            _vm._v(" "),
+                            _vm._m(3, true)
+                          ])
+                        })
+                      )
+                    : _vm._e()
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "body", attrs: { align: "right" } },
+                [
+                  _c("pagination", {
+                    attrs: { data: _vm.kegiatansData, limit: 3 },
+                    on: { "pagination-change-page": _vm.getHalaman }
+                  })
+                ],
+                1
               )
             ])
           ])
@@ -47284,30 +47320,14 @@ if (false) {
 
 /***/ }),
 /* 53 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(65)
+var __vue_script__ = __webpack_require__(54)
 /* template */
-var __vue_template__ = __webpack_require__(66)
+var __vue_template__ = __webpack_require__(55)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -47346,12 +47366,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 65 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
@@ -47492,7 +47512,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 66 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -47817,6 +47837,122 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-7ebdbf89", module.exports)
   }
 }
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */
+/***/ (function(module, exports) {
+
+module.exports = {
+	props: {
+		data: {
+			type: Object,
+			default: function() {
+				return {
+					current_page: 1,
+					data: [],
+					from: 1,
+					last_page: 1,
+					next_page_url: null,
+					per_page: 10,
+					prev_page_url: null,
+					to: 1,
+					total: 0,
+				}
+			}
+		},
+		limit: {
+			type: Number,
+			default: 0
+		}
+	},
+
+	template: '<ul class="pagination" v-if="data.total > data.per_page">\
+		<li class="page-item pagination-prev-nav" v-if="data.prev_page_url">\
+			<a class="page-link" href="#" aria-label="Previous" @click.prevent="selectPage(--data.current_page)">\
+				<slot name="prev-nav">\
+					<span aria-hidden="true">&laquo;</span>\
+					<span class="sr-only">Previous</span>\
+				</slot>\
+			</a>\
+		</li>\
+		<li class="page-item pagination-page-nav" v-for="n in getPages()" :class="{ \'active\': n == data.current_page }">\
+			<a class="page-link" href="#" @click.prevent="selectPage(n)">{{ n }}</a>\
+		</li>\
+		<li class="page-item pagination-next-nav" v-if="data.next_page_url">\
+			<a class="page-link" href="#" aria-label="Next" @click.prevent="selectPage(++data.current_page)">\
+				<slot name="next-nav">\
+					<span aria-hidden="true">&raquo;</span>\
+					<span class="sr-only">Next</span>\
+				</slot>\
+			</a>\
+		</li>\
+	</ul>',
+
+	methods: {
+		selectPage: function(page) {
+			if (page === '...') {
+				return;
+			}
+
+			this.$emit('pagination-change-page', page);
+		},
+		getPages: function() {
+			if (this.limit === -1) {
+				return 0;
+			}
+
+			if (this.limit === 0) {
+				return this.data.last_page;
+			}
+
+			var current = this.data.current_page,
+				last = this.data.last_page,
+				delta = this.limit,
+				left = current - delta,
+				right = current + delta + 1,
+				range = [],
+				pages = [],
+				l;
+
+			for (var i = 1; i <= last; i++) {
+				if (i == 1 || i == last || (i >= left && i < right)) {
+					range.push(i);
+				}
+			}
+
+			range.forEach(function (i) {
+				if (l) {
+					if (i - l === 2) {
+						pages.push(l + 1);
+					} else if (i - l !== 1) {
+						pages.push('...');
+					}
+				}
+				pages.push(i);
+				l = i;
+			});
+
+			return pages;
+		}
+	}
+};
+
 
 /***/ })
 /******/ ]);
