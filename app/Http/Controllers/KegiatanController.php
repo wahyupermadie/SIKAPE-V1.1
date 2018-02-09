@@ -72,7 +72,7 @@ class KegiatanController extends Controller
 
     public function showByJurusan($id_jurusan){
         $kegiatan= Kegiatans::where('id_jurusan',$id_jurusan)
-            ->get();
+            ->paginate(5);
         return response()->json($kegiatan);   
     }
 

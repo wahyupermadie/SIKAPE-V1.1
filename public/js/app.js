@@ -43311,7 +43311,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
+    return _c("a", [
       _c("i", { staticClass: "fa fa-bar-chart-o fa-fw" }),
       _vm._v("Daftar Jurusan"),
       _c("span", { staticClass: "fa arrow" })
@@ -46776,14 +46776,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-<<<<<<< HEAD
 //
 //
 //
 //
 //
-=======
->>>>>>> 295024a8de394f97c2813671efbc5a4e30fe1b2b
+//
+//
+//
 
 
 
@@ -46794,20 +46794,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             mahasiswas: [],
             kegiatans: [],
             kegiatan: {},
-<<<<<<< HEAD
             addData: {
                 'nama': '',
                 'tahun': '',
                 'id_jurusan': this.$route.params.id
             },
             url: '/api/kegiatan',
-            rows: []
-=======
-            rows: [],
             kegiatansData: {},
-            loading: true,
-            errors: []
->>>>>>> 295024a8de394f97c2813671efbc5a4e30fe1b2b
+            rows: []
         };
     },
 
@@ -46822,7 +46816,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (typeof page === 'undefined') {
                 page = 1;
             }
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/kegiatan/' + this.$route.params.id + '?page=' + page).then(function (resp) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/kegiatan/jurusan/' + this.$route.params.id + '?page=' + page).then(function (resp) {
                 app.kegiatans = resp.data.data;
                 app.kegiatansData = resp.data;
                 app.loading = false;
@@ -46848,15 +46842,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.jurusan = response.data;
             });
         },
-<<<<<<< HEAD
-        fetchKegiatans: function fetchKegiatans() {
-            var _this3 = this;
-
-            var uri = '/api/kegiatan/jurusan/' + this.$route.params.id;
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(uri).then(function (response) {
-                _this3.kegiatans = response.data;
-            });
-        },
         addKegiatan: function addKegiatan() {
             var vm = this;
             var formData = new FormData();
@@ -46870,36 +46855,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 $("#addModal").modal('hide');
                 vm.addData.nama = '';
                 vm.addData.tahun = '';
-                vm.fectKegiatan();
-=======
-
-        //            fetchKegiatans()
-        //            {
-        //                let uri = `http://127.0.0.1:8000/api/kegiatan/${this.$route.params.id}`;
-        //                axios.get(uri).then((response) => {
-        //                    this.kegiatans = response.data;
-        //                });
-        //
-        //            },
-        watch: {
-            '$route.params.id': 'fetchKegiatans'
-        },
-        addItem: function addItem() {
-            var _this3 = this;
-
-            var uri = 'http://127.0.0.1:8000/api/kegiatan';
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(uri, this.kegiatan).then(function (response) {
-                _this3.$router.push({ name: 'Jurusan' });
-            });
-        },
-
-        addRow: function addRow() {
-            var elem = document.createElement('tr');
-            this.rows.push({
-                nim: "",
-                jabatan: "",
-                kegiatan: ""
->>>>>>> 295024a8de394f97c2813671efbc5a4e30fe1b2b
+                vm.getHalaman();
             });
         }
     }
@@ -46941,51 +46897,6 @@ var render = function() {
                 [
                   _vm._m(2),
                   _vm._v(" "),
-<<<<<<< HEAD
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.kegiatans, function(kegiatan) {
-                      return _c("tr", [
-                        _c("td", [_vm._v(_vm._s(kegiatan.id))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(kegiatan.nama))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(kegiatan.tahun))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-primary",
-                              attrs: { href: "/documents/" + kegiatan.sk }
-                            },
-                            [_vm._v("DOWNLOAD SK")]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "btn btn-default",
-                                attrs: {
-                                  to: {
-                                    name: "DetailKegiatan",
-                                    params: { id_kegiatan: kegiatan.id }
-                                  }
-                                }
-                              },
-                              [_vm._v("Lihat")]
-                            )
-                          ],
-                          1
-                        )
-                      ])
-                    })
-                  )
-=======
                   _vm.kegiatans.length
                     ? _c(
                         "tbody",
@@ -46993,18 +46904,44 @@ var render = function() {
                           return _c("tr", [
                             _c("td", [_vm._v(_vm._s(kegiatan.id))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(kegiatan.name))]),
+                            _c("td", [_vm._v(_vm._s(kegiatan.nama))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(kegiatan.tahun))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(kegiatan.sk))]),
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary",
+                                  attrs: { href: "/documents/" + kegiatan.sk }
+                                },
+                                [_vm._v("DOWNLOAD SK")]
+                              )
+                            ]),
                             _vm._v(" "),
-                            _vm._m(3, true)
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-default",
+                                    attrs: {
+                                      to: {
+                                        name: "DetailKegiatan",
+                                        params: { id_kegiatan: kegiatan.id }
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Lihat")]
+                                )
+                              ],
+                              1
+                            )
                           ])
                         })
                       )
                     : _vm._e()
->>>>>>> 295024a8de394f97c2813671efbc5a4e30fe1b2b
                 ]
               ),
               _vm._v(" "),
@@ -47951,8 +47888,6 @@ if (false) {
 
 // removed by extract-text-webpack-plugin
 
-<<<<<<< HEAD
-=======
 /***/ }),
 /* 57 */,
 /* 58 */,
@@ -48063,6 +47998,5 @@ module.exports = {
 };
 
 
->>>>>>> 295024a8de394f97c2813671efbc5a4e30fe1b2b
 /***/ })
 /******/ ]);

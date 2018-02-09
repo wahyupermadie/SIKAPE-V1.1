@@ -157,6 +157,7 @@
                     'id_jurusan':this.$route.params.id
                 },
                 url:'/api/kegiatan',
+                kegiatansData:{},
                 rows:[]
             }
         },
@@ -172,7 +173,7 @@
                 if (typeof page === 'undefined'){
                     page = 1;
                 }
-                axios.get(`/api/kegiatan/${this.$route.params.id}?page=`+page)
+                axios.get(`/api/kegiatan/jurusan/${this.$route.params.id}?page=`+page)
                     .then(function (resp){
                         app.kegiatans = resp.data.data;
                         app.kegiatansData = resp.data;
@@ -198,13 +199,6 @@
                     this.jurusan = response.data;
                 });
             },
-            fetchKegiatans()
-            {
-                let uri = `/api/kegiatan/jurusan/${this.$route.params.id}`;
-                axios.get(uri).then((response) => {
-                    this.kegiatans = response.data;
-                });
-            },
             addKegiatan(){
                 var vm=this
                 var formData = new FormData();
@@ -219,7 +213,7 @@
                         $("#addModal").modal('hide')
                         vm.addData.nama=''
                         vm.addData.tahun=''
-                        vm.fectKegiatan()
+                        vm.getHalaman()
                     })
             },
         }
