@@ -211,6 +211,7 @@
                 axios.post(`${this.url}`,formData)
                     .then(function(response){
                         $("#addModal").modal('hide')
+                        $('.modal-backdrop').remove();
                         vm.addData.nama=''
                         vm.addData.tahun=''
                         vm.getHalaman()
