@@ -34,10 +34,10 @@
                                 <tbody v-if="kegiatans.length">
                                 <tr v-for="kegiatan in kegiatans">
                                     <td>{{kegiatan.id}}</td>
-                                    <td>{{kegiatan.name}}</td>
+                                    <td>{{kegiatan.nama}}</td>
                                     <td>{{kegiatan.tahun}}</td>
-                                    <td>{{kegiatan.sk}}</td>
-                                    <td><button class="btn btn-primary">DOWNLOAD SK</button></td>
+                                    <td><a :href="'/documents/'+kegiatan.sk" class="btn btn-primary">DOWNLOAD SK</a></td>
+                                    <td><router-link class="btn btn-default" :to="{name:'DetailKegiatan',params:{'id_kegiatan':kegiatan.id}}">Lihat</router-link></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -89,44 +89,52 @@
 
         <!-- Modal -->
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Kegiatan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form v-on:submit.prevent="addItem()">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <td><strong>NIM</strong></td>
-                                    <td><strong>KEGIATAN</strong></td>
-                                    <td><strong>JABATAN</strong></td>
-                                    <td><strong>ACTION</strong></td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="(row, index) in rows">
-                                    <td><input type="text" v-model="row.nim"></td>
-                                    <td><input type="text" v-model="row.kegiatan"></td>
-                                    <td><input type="text" v-model="row.jabatan"></td>
-                                    <td>
-                                        <a class="btn btn-danger" v-on:click="removeElement(index);" style="cursor: pointer">Remove</a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-primary" @click="addRow">Add row</button>
-                            <button class="btn btn-success" type="submit">Simpan</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Kegiatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form v-on:submit.prevent="addKegiatan()"> 
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="nama" placeholder="Nama Kegiatan" v-model="addData.nama">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="tahun" v-model="addData.tahun">
+                                <option value="">Pilih Tahun</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                            </select> 
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="tahun" v-model="addData.id_jurusan">
+                                <option value="">Pilih Jurusan</option>
+                                <option value="1">Teknik Arsitektur</option>
+                                <option value="2">Teknik Sipil</option>
+                                <option value="3">Teknik Elektro</option>
+                                <option value="4">Teknik Mesin</option>
+                                <option value="5">Teknologi Informasi</option>
+                            </select> 
+                        </div>
+                        <div class="form-group">
+                            <label for="fileSk">Input SK</label>
+                            <input type="file" class="form-control" id="fileSk" aria-describedby="fileHelp">
+                            <small id="fileHelp" class="form-text text-muted">Upload pdf</small>
+                        </div>
+                        <button type="submit">Simpan</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -149,10 +157,14 @@
                 mahasiswas: [],
                 kegiatans: [],
                 kegiatan: {},
-                rows:[],
+                addData:{
+                    'nama':'',
+                    'tahun':'',
+                    'id_jurusan':this.$route.params.id
+                },
+                url:'/api/kegiatan',
                 kegiatansData:{},
-                loading: true,
-                errors: [],
+                rows:[]
             }
         },
         created: function()
@@ -193,34 +205,23 @@
                     this.jurusan = response.data;
                 });
             },
-//            fetchKegiatans()
-//            {
-//                let uri = `http://127.0.0.1:8000/api/kegiatan/${this.$route.params.id}`;
-//                axios.get(uri).then((response) => {
-//                    this.kegiatans = response.data;
-//                });
-//
-//            },
-            watch: {
-                '$route.params.id': 'fetchKegiatans',
+            addKegiatan(){
+                var vm=this
+                var formData = new FormData();
+                var sk = document.getElementById('fileSk');
+                formData.append("sk", sk.files[0]);
+                formData.append("nama", vm.addData.nama);
+                formData.append("tahun", vm.addData.tahun);
+                formData.append("id_jurusan", vm.addData.id_jurusan);
+                axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+                axios.post(`${this.url}`,formData)
+                    .then(function(response){
+                        $("#addModal").modal('hide')
+                        vm.addData.nama=''
+                        vm.addData.tahun=''
+                        vm.getHalaman()
+                    })
             },
-            addItem() {
-                let uri = 'http://127.0.0.1:8000/api/kegiatan';
-                axios.post(uri, this.kegiatan).then((response) => {
-                    this.$router.push({name: 'Jurusan'})
-                })
-            },
-            addRow: function() {
-                var elem = document.createElement('tr');
-                this.rows.push({
-                    nim: "",
-                    jabatan: "",
-                    kegiatan:""
-                });
-            },
-            removeElement: function(index) {
-                this.rows.splice(index, 1);
-            }
         }
     }
 </script>

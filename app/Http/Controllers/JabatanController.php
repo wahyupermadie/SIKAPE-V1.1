@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jabatans;
 
 class JabatanController extends Controller
 {
@@ -13,7 +14,8 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        //
+        $jabatan=Jabatans::all();
+        return response()->json($jabatan);
     }
 
     /**

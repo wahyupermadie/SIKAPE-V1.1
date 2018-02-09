@@ -2,30 +2,34 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Dashboard {{kegiatan.nama}}<div style="float: right"><button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Tambah Kepanitiaan</button></div></h1>
+                <h1 class="page-header">{{kegiatan.nama}}<div style="float: right"><button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Tambah Kepanitiaan</button></div></h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!--<div class="container">-->
             <div class="row">
                 <div class="col-md-12">
-                    <h1>{{kegiatan.nama}}</h1>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Tambah Panitia</button>
-                    <table class="table">
-                        <tr>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Jabatan</th>
-                            <th>Point</th>
-                            <th>Action</th>
-                        </tr>
-                        <tr v-for="result in kegiatan.panitia">
-                            <td>{{result.nim}}</td>
-                            <td>{{result.mahasiswa.nama}}</td>
-                            <td>{{result.jabatan.nama}}</td>
-                            <td>{{result.point}}</td>
-                            <td>Action</td>
-                        </tr>
+                    <table width="100%" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>NIM</th>
+                                <th>Nama</th>
+                                <th>Jabatan</th>
+                                <th>Point</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="result in kegiatan.panitia">
+                                <td>{{result.nim}}</td>
+                                <td>{{result.mahasiswa.nama}}</td>
+                                <td>{{result.jabatan.nama}}</td>
+                                <td>{{result.point}}</td>
+                                <td>Action</td>
+                            </tr>
+                        </tbody>
+                            
+                        
                     </table>
                 </div>
             </div>

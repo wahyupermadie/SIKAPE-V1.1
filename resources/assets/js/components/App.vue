@@ -44,9 +44,9 @@
                     <router-link to="/kegiatan"><i class="fa fa-dashboard fa-fw"></i>Dashboard</router-link>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Daftar Jurusan<span class="fa arrow"></span></a>
+                    <a><i class="fa fa-bar-chart-o fa-fw"></i>Daftar Jurusan<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li v-for="jurusan in jurusans">
+                        <li  v-for="jurusan in jurusans">
                             <router-link :to="{name: 'Jurusan', params: { id: jurusan.id}}">{{ jurusan.nama }}</router-link>
                         </li>
                     </ul>
