@@ -135,6 +135,7 @@
                 axios.post(`${this.add_url}`,dataInput)
                     .then(function(response){
                         $("#addModal").modal('hide')
+                        $('.modal-backdrop').remove()
                         vm.panitia.nim=''
                         vm.panitia.id_jabatan=''
                         vm.panitia.point=''

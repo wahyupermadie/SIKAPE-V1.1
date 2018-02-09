@@ -47986,6 +47986,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.defaults.headers.post['Content-Type'] = 'multipart/form-data';
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('' + this.url, formData).then(function (response) {
                 $("#addModal").modal('hide');
+                $('.modal-backdrop').remove();
                 vm.addData.nama = '';
                 vm.addData.tahun = '';
                 vm.getHalaman();
@@ -48683,6 +48684,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var dataInput = vm.panitia;
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('' + this.add_url, dataInput).then(function (response) {
                 $("#addModal").modal('hide');
+                $('.modal-backdrop').remove();
                 vm.panitia.nim = '';
                 vm.panitia.id_jabatan = '';
                 vm.panitia.point = '';
