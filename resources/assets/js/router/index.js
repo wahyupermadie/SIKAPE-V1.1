@@ -7,7 +7,7 @@ import Kegiatan from '../components/KegiatanComponent'
 import Mahasiswa from '../components/MahasiswaComponent'
 import Jurusan from '../components/JurusanComponent.vue'
 import DetailKegiatan from '../components/DetailKegiatanComponent'
-
+Vue.component('pagination', require('laravel-vue-pagination'));
 const router= new Router({
     mode: 'history',
     routes: [
