@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Panitias;
 class PanitiaController extends Controller
 {
     /**
@@ -34,7 +34,12 @@ class PanitiaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $panitia=new Panitias();
+        $panitia->id_kegiatan=$request->get('id_kegiatan');
+        $panitia->id_jabatan=$request->get('id_jabatan');
+        $panitia->nim=$request->get('nim');
+        $panitia->point=$request->get('point');
+        $panitia->save();
     }
 
     /**

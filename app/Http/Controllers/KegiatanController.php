@@ -45,7 +45,7 @@ class KegiatanController extends Controller
             $request->sk->move($destinationPath, $file_name);
 
             $kegiatan = new Kegiatans();
-            $kegiatan->name = $request->get('nama');
+            $kegiatan->nama = $request->get('nama');
             $kegiatan->tahun = $request->get('tahun');
             $kegiatan->id_jurusan = $request->get('id_jurusan');
             $kegiatan->sk = $file_name;
@@ -63,9 +63,17 @@ class KegiatanController extends Controller
      */
     public function show($id)
     {
-        $kegiatans = Kegiatans::select('*')
-        ->where(['id_jurusan'=>$id])->get();
-        return response()->json($kegiatans);
+        $kegiatan=Kegiatans::with('panitia.mahasiswa')
+        ->with('panitia.jabatan')
+            ->where('id',$id)
+            ->first();
+        return response()->json($kegiatan);
+    }
+
+    public function showByJurusan($id_jurusan){
+        $kegiatan= Kegiatans::where('id_jurusan',$id_jurusan)
+            ->get();
+        return response()->json($kegiatan);   
     }
 
     /**

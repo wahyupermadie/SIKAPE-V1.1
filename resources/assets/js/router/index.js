@@ -12,7 +12,7 @@ const router= new Router({
     mode: 'history',
     routes: [
         {
-            path: '/kegiatan/detail/:id_kegiatan',
+            path: '/kegiatan/:id_kegiatan',
             name: 'DetailKegiatan',
             component: DetailKegiatan},
         {

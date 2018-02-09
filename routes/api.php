@@ -21,5 +21,7 @@ Route::resource('/jurusan','JurusanController');
 
 Route::resource('/mahasiswa','MahasiswaController');
 Route::resource('/panitia','PanitiaController');
+Route::resource('/jabatan','JabatanController');
+
 Route::get('/kegiatan/jurusan/{id_jurusan}','KegiatanController@showByJurusan');
 Route::get('mahasiswa/jurusan/{id_jurusan}','MahasiswaController@showByJurusan');

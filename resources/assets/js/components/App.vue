@@ -42,8 +42,8 @@
                 </li>
                 <li>
                     <a><i class="fa fa-bar-chart-o fa-fw"></i>Daftar Jurusan<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level" v-for="jurusan in jurusans">
-                        <li>
+                    <ul class="nav nav-second-level">
+                        <li  v-for="jurusan in jurusans">
                             <router-link :to="{name: 'Jurusan', params: { id: jurusan.id}}">{{ jurusan.nama }}</router-link>
                         </li>
                     </ul>
@@ -77,7 +77,7 @@
         methods: {
             fetchJurusans()
             {
-                let uri = 'http://127.0.0.1:8000/api/jurusan';
+                let uri = '/api/jurusan';
                 axios.get(uri).then((response) => {
                     this.jurusans = response.data;
                 });
