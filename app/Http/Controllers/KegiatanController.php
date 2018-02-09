@@ -63,10 +63,19 @@ class KegiatanController extends Controller
      */
     public function show($id)
     {
-        $kegiatans = Kegiatans::select('*')
-        ->where(['id_jurusan'=>$id])->paginate(5);
-        return response()->json($kegiatans);
+        $kegiatan=Kegiatans::with('panitia.mahasiswa')
+            ->with('panitia.jabatan')
+            ->where('id',$id)
+            ->first();
+        return response()->json($kegiatan);
     }
+
+    public function showByJurusan($id_jurusan){
+        $kegiatan= Kegiatans::where('id_jurusan',$id_jurusan)
+            ->paginate(5);
+        return response()->json($kegiatan);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

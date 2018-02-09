@@ -18,8 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::resource('/kegiatan','KegiatanController');
 Route::resource('/jurusan','JurusanController');
-
 Route::resource('/mahasiswa','MahasiswaController');
 Route::resource('/panitia','PanitiaController');
+
 Route::get('/kegiatan/jurusan/{id_jurusan}','KegiatanController@showByJurusan');
 Route::get('mahasiswa/jurusan/{id_jurusan}','MahasiswaController@showByJurusan');
+

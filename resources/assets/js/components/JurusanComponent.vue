@@ -137,6 +137,12 @@
     import axios from 'axios'
     import vue from 'vue'
     export default {
+        metaInfo: {
+            // if no subcomponents specify a metaInfo.title, this title will be used
+            title: 'SIKAPE',
+            // all titles will be injected into this template
+            titleTemplate: '%s | SISTEM INFORMASI SKP'
+        },
         data(){
             return{
                 jurusan:{},
@@ -161,7 +167,7 @@
                 if (typeof page === 'undefined'){
                     page = 1;
                 }
-                axios.get(`/api/kegiatan/${this.$route.params.id}?page=`+page)
+                axios.get(`/api/kegiatan/jurusan/${this.$route.params.id}?page=`+page)
                     .then(function (resp){
                         app.kegiatans = resp.data.data;
                         app.kegiatansData = resp.data;
