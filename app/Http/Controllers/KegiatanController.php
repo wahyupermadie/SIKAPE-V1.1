@@ -70,12 +70,12 @@ class KegiatanController extends Controller
         return response()->json($kegiatan);
     }
 
-    public function showByJurusan($id_jurusan){
+    public function showByJurusan(Request $request, $id_jurusan){
         $kegiatan= Kegiatans::where('id_jurusan',$id_jurusan)
+            ->where('nama', 'LIKE', "%$request->q%")
             ->paginate(5);
         return response()->json($kegiatan);
     }
-
 
     /**
      * Show the form for editing the specified resource.

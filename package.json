@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "laravel-vue-pagination": "^1.2.0",
-    "vue-meta": "^1.4.3"
+    "vue-meta": "^1.4.3",
+    "vue-simple-spinner": "^1.2.8"
   }
 }
-
