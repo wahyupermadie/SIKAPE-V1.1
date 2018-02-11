@@ -18,7 +18,7 @@ class MahasiswaController extends Controller
     }
     public function showByJurusan($id_jurusan){
         $mahasiswa=Mahasiswas::where('id_jurusan',$id_jurusan)
-            ->get();
+            ->paginate(10);
         foreach($mahasiswa as $data){
             $panitias=Panitias::where('nim',$data->nim)->get();
             $point=0;
@@ -32,6 +32,22 @@ class MahasiswaController extends Controller
     public function showPoint($id_jurusan){
         $mahasiswa=Mahasiswas::where('id_jurusan',$id_jurusan)
             ->get();
+        return response()->json($mahasiswa);
+    }
+    public function search(Request $request,$id_jurusan)
+    {# code...
+//        return $request;
+        $mahasiswa=Mahasiswas::where('id_jurusan',$id_jurusan)
+            ->where('nim', 'LIKE', "%$request->q%")
+            ->paginate(10);
+        foreach($mahasiswa as $data){
+            $panitias=Panitias::where('nim',$data->nim)->get();
+            $point=0;
+            foreach($panitias as $panitia){
+                $point+=$panitia->point;
+            }
+            $data->point=$point;
+        }
         return response()->json($mahasiswa);
     }
     /**

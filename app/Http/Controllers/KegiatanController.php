@@ -45,7 +45,7 @@ class KegiatanController extends Controller
             $request->sk->move($destinationPath, $file_name);
 
             $kegiatan = new Kegiatans();
-            $kegiatan->nama = $request->get('nama');
+            $kegiatan->name = $request->get('nama');
             $kegiatan->tahun = $request->get('tahun');
             $kegiatan->id_jurusan = $request->get('id_jurusan');
             $kegiatan->sk = $file_name;
@@ -64,17 +64,17 @@ class KegiatanController extends Controller
     public function show($id)
     {
         $kegiatan=Kegiatans::with('panitia.mahasiswa')
-        ->with('panitia.jabatan')
+            ->with('panitia.jabatan')
             ->where('id',$id)
             ->first();
         return response()->json($kegiatan);
     }
 
-    public function showByJurusan($id_jurusan,Request $request){
-        $search=$request->get('search');
-        $kegiatan= Kegiatans::where([['id_jurusan',$id_jurusan],['nama','like','%'.$search.'%']])
+    public function showByJurusan(Request $request, $id_jurusan){
+        $kegiatan= Kegiatans::where('id_jurusan',$id_jurusan)
+            ->where('nama', 'LIKE', "%$request->q%")
             ->paginate(5);
-        return response()->json($kegiatan);   
+        return response()->json($kegiatan);
     }
 
     /**

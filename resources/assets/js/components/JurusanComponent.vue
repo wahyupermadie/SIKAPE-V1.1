@@ -21,10 +21,19 @@
                     <div class="row">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search" @keyup="getHalaman()" v-model="search_kegiatan">
+                            <div class="form-group form-float">
+                                <div id="imaginary">
+                                    <div class="input-group stylish-input-group">
+                                        <input type="text" class="form-control"  @keyup="getHalamanKegiatan()" placeholder="Search" v-model="pencarianKegiatan" >
+                                        <span class="input-group-addon">
+                                            <button type="submit">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                                    </div>
+                                </div>
                             </div>
-                            <table width="100%" class="table table-striped table-bordered table-hover">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
                                     <th>No</th>
@@ -44,8 +53,9 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <vue-simple-spinner v-if="loading"></vue-simple-spinner>
                             <div class="body" align="right">
-                                <pagination :data="kegiatansData" v-on:pagination-change-page="getHalaman" :limit="3"></pagination>
+                                <pagination :data="kegiatansData" v-on:pagination-change-page="getHalamanKegiatan" :limit="3"></pagination>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
@@ -57,6 +67,18 @@
                     <div class="row">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+                            <div class="form-group form-float">
+                                <div id="imaginary_container">
+                                    <div class="input-group stylish-input-group">
+                                        <input type="text" class="form-control"  @keyup="getHalamanMahasiswa()" placeholder="Search" v-model="pencarianMahasiswa" >
+                                        <span class="input-group-addon">
+                                    <button type="submit">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
                             <table width="100%" class="table table-striped table-bordered table-hover" >
                                 <thead>
                                 <tr>
@@ -69,7 +91,7 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody v-if="mahasiswas.length">
                                 <tr v-for="mahasiswa in mahasiswas">
                                     <td>{{mahasiswa.nim}}</td>
                                     <td>{{mahasiswa.nama}}</td>
@@ -81,6 +103,10 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <vue-simple-spinner v-if="loading"></vue-simple-spinner>
+                            <div class="body" align="right">
+                                <pagination :data="mahasiswasData" v-on:pagination-change-page="getHalamanMahasiswa" :limit="3"></pagination>
+                            </div>
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
@@ -103,7 +129,7 @@
                 <div class="modal-body">
                     <form v-on:submit.prevent="addKegiatan()"> 
                         <div class="form-group">
-                            <input class="form-control" type="text" name="nama" placeholder="Nama Kegiatan" v-model="addData.nama">
+                            <input class="form-control" type="text" name="nama" placeholder="Nama Kegiatan"  v-model="addData.nama">
                         </div>
                         <div class="form-group">
                             <select class="form-control" name="tahun" v-model="addData.tahun">
@@ -148,6 +174,12 @@
     import axios from 'axios'
     import vue from 'vue'
     export default {
+        metaInfo: {
+            // if no subcomponents specify a metaInfo.title, this title will be used
+            title: 'SIKAPE',
+            // all titles will be injected into this template
+            titleTemplate: '%s | SISTEM INFORMASI SKP'
+        },
         data(){
             return{
                 jurusan:{},
@@ -161,25 +193,43 @@
                 },
                 url:'/api/kegiatan',
                 kegiatansData:{},
+                mahasiswasData:{},
                 rows:[],
-                search_kegiatan:'',
+                pencarianMahasiswa: '',
+                pencarianKegiatan:'',
+                loading: true,
             }
         },
         created: function()
         {
             this.getJurusan()
-            this.fetchMahasiswas()
-            this.getHalaman()
+            this.getHalamanMahasiswa()
+            this.getHalamanKegiatan()
         },
         methods: {
-            getHalaman(page) {
+            getHalamanMahasiswa(page) {
                 var app = this;
                 if (typeof page === 'undefined'){
                     page = 1;
                 }
-                let url=`/api/kegiatan/jurusan/${this.$route.params.id}?page=`+page+"&search="+app.search_kegiatan
-                console.log(url)
-                axios.get(url)
+                axios.get(`/api/search-mahasiswa/${this.$route.params.id}?q=`+app.pencarianMahasiswa+`&page=`+page)
+                    .then(function (resp){
+                        app.mahasiswas = resp.data.data;
+                        app.mahasiswasData = resp.data;
+                        app.loading = false;
+                    })
+                    .catch(function (resp){
+                        console.log(resp);
+                        app.loading = false;
+                        alert("Could not load halaman");
+                    });
+            },
+            getHalamanKegiatan(page) {
+                var app = this;
+                if (typeof page === 'undefined'){
+                    page = 1;
+                }
+                axios.get(`/api/kegiatan/jurusan/${this.$route.params.id}?q=`+app.pencarianKegiatan+`&page=`+page)
                     .then(function (resp){
                         app.kegiatans = resp.data.data;
                         app.kegiatansData = resp.data;
@@ -191,13 +241,7 @@
                         app.loading = false;
                         alert("Could not load halaman");
                     });
-            },
-            fetchMahasiswas()
-            {
-              let uri = `/api/mahasiswa/jurusan/${this.$route.params.id}`
-                axios.get(uri).then((response) => {
-                  this.mahasiswas = response.data;
-                })
+                console.log(`/api/kegiatan/jurusan/${this.$route.params.id}?q=`+app.pencarianKegiatan+`?page=`+page)
             },
             getJurusan()
             {
