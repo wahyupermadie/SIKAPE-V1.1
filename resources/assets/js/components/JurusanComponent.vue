@@ -2,7 +2,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Dashboard {{jurusan.nama}}<div style="float: right"><button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Tambah Kepanitiaan</button></div></h1>
+                <h1 class="page-header">Dashboard {{jurusan.nama}}<div style="float: right"><button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Tambah Kegiatan</button></div></h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -21,7 +21,10 @@
                     <div class="row">
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search" @keyup="getHalaman()" v-model="search_kegiatan">
+                            </div>
+                            <table width="100%" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>No</th>
@@ -74,7 +77,7 @@
                                     <td>{{mahasiswa.no_telp}}</td>
                                     <td>{{mahasiswa.tanggal_lahir}}</td>
                                     <td>{{mahasiswa.point}}</td>
-                                    <td><button class="btn btn-primary">EDIT</button></td>
+                                    <td><router-link :to="{name: 'DetailMahasiswa', params: { nim: mahasiswa.nim}}">LIHAT</router-link></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -158,7 +161,8 @@
                 },
                 url:'/api/kegiatan',
                 kegiatansData:{},
-                rows:[]
+                rows:[],
+                search_kegiatan:'',
             }
         },
         created: function()
@@ -173,11 +177,14 @@
                 if (typeof page === 'undefined'){
                     page = 1;
                 }
-                axios.get(`/api/kegiatan/jurusan/${this.$route.params.id}?page=`+page)
+                let url=`/api/kegiatan/jurusan/${this.$route.params.id}?page=`+page+"&search="+app.search_kegiatan
+                console.log(url)
+                axios.get(url)
                     .then(function (resp){
                         app.kegiatans = resp.data.data;
                         app.kegiatansData = resp.data;
                         app.loading = false;
+                        
                     })
                     .catch(function (resp){
                         console.log(resp);

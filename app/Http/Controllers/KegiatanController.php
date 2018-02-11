@@ -70,8 +70,9 @@ class KegiatanController extends Controller
         return response()->json($kegiatan);
     }
 
-    public function showByJurusan($id_jurusan){
-        $kegiatan= Kegiatans::where('id_jurusan',$id_jurusan)
+    public function showByJurusan($id_jurusan,Request $request){
+        $search=$request->get('search');
+        $kegiatan= Kegiatans::where([['id_jurusan',$id_jurusan],['nama','like','%'.$search.'%']])
             ->paginate(5);
         return response()->json($kegiatan);   
     }

@@ -61,7 +61,10 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        //
+        $mahasiswa=Mahasiswas::with('panitia.kegiatan')
+            ->with('panitia.jabatan')
+            ->where('nim',$id)->first();
+        return response()->json($mahasiswa);
     }
     /**
      * Show the form for editing the specified resource.

@@ -7,6 +7,8 @@ import Kegiatan from '../components/KegiatanComponent'
 import Mahasiswa from '../components/MahasiswaComponent'
 import Jurusan from '../components/JurusanComponent.vue'
 import DetailKegiatan from '../components/DetailKegiatanComponent'
+import DetailMahasiswa from '../components/DetailMahasiswaComponent'
+
 Vue.component('pagination', require('laravel-vue-pagination'));
 const router= new Router({
     mode: 'history',
@@ -22,11 +24,18 @@ const router= new Router({
         {
             name: 'Mahasiswa',
             path: '/mahasiswa',
-            component: Mahasiswa},
+            component: Mahasiswa
+        },
         {
             name: 'Jurusan',
             path: '/jurusan/:id',
-            component: Jurusan},
+            component: Jurusan
+        },
+        {
+            name: 'DetailMahasiswa',
+            path: '/mahasiswa/:nim',
+            component: DetailMahasiswa
+        },
     ]
 })
 
